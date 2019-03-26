@@ -32,3 +32,22 @@ function init() {
 function displayStats() {
 
 }
+
+function reset() {
+    var beginText = document.getElementById("begin");
+    var button = documnet.getElementById("button");
+    var userChoiceText = document.getElementById("userchoice-text");
+
+    var x = document.getElementById("stats");
+
+    //x.style.display === "none";
+    if (x.style.display === "none") {
+        beginText.innerText = "";
+        userChoiceText.innerText = "";
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+        button.style.button = "none";
+        beginText.innerText = "Press any key to start...";
+    }
+}
