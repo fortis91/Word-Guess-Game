@@ -1,53 +1,23 @@
-console.clear
-console.log("begin game...");
 
 var str = "abcdefghijklmnopqrstuvwxyz";
-var alphaArray = str.split(""); // the argument is a null string, "".
+var alphaArray = str.split("");
 var words = ["game", "sox", "bears", "bulls"];
 var userWord = [];
 var currentWord;
 var currentWordArray = [];
-var lettersUsed = [];//new Array(5);
+var lettersUsed = [];
 var userLetter;
 var allowedGuesses = 5;
 var guessRemain = 5;
+var currentGuess = 0;
 
-console.log(alphaArray.length);
-for (i = 0; i < alphaArray.length; i++) {
-    //console.log(alphaArray[i]);
-}
+var foundLetter = false;
 
-//https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_random2
-function randomWord() {
-    var x = Math.floor((Math.random() * 3) + 1);
-    //document.getElementById("demo").innerHTML = x;
-    return words[x];
-}
+init();
 
-function userGuess() {
-    var x = Math.floor((Math.random() * 26) + 1);
-    //document.getElementById("demo").innerHTML = x;
-    return alphaArray[x];
-}
-
-console.reset = function () {
-    return process.stdout.write('\033c');
-}
-console.reset;
-console.clear;
-console.log('\x1Bc');
-
-// This function is run whenever the user presses a key.
-document.onkeyup = function (event) {
-    // Determines which key was pressed.
-    var letter = event.key;
-
-    playGame(letter);
-};
-
-function playGame(letter) {
-    console.log("playGame - begin");
-    console.log(letter);
+function init() {
+    console.clear();
+    console.log("initializing...");
 
     currentWord = randomWord();
     currentWordArray = currentWord.split(",");
@@ -56,69 +26,82 @@ function playGame(letter) {
         userWord.push('_');
     }
 
-    // for (i = 0; i < allowedGuesses.length; i++) {
-    //     lettersUsed.push('_');
-    // }
-
-    //userWord = new Array(currentWordArray.length);
     var currentGuess = 0;
-
     var noWinner = true;
-    //while (currentGuess <= allowedGuesses && noWinner) {
-    while (guessRemain > 0 && noWinner) {
-        console.log('\x1Bc');
-        console.log("Total allowed guesses: " + allowedGuesses);
-        console.log("Total current guess  : " + currentGuess);
-        console.log("Remaing guess        : " + guessRemain);
-        console.log("Letters already used : " + lettersUsed);
-        console.log("Current word         : " + currentWord);
-        console.log("User word            : " + userWord);
-        console.log("");
+}
 
-        //var letter = readline.question("Enter guess: ");
-        console.log(lettersUsed);
-        if (lettersUsed.includes(letter)) {
-            console.log(letter + " already selected");
-        }
-        lettersUsed.push(letter);
+function randomWord() {
+    var x = Math.floor((Math.random() * words.length) + 1);
+    return words[x];
+}
 
-        for (i = 0; i <= currentWord.length; i++) {
-            var wletter = currentWord[i];
-            if (letter === wletter) {
-                console.log("found at: " + i + " splicing in userWord");
-                userWord.splice(i, 1, letter);
-                //console.log(userWord.join(""));
-            }
-            //lettersUsed.slice(i, 1, letter);
-        }
-        console.log(lettersUsed.join(""));
-        //console.log("userword: " + userWord.join('') + ", currentWord: " + currentWord);
-        console.log('\x1Bc');
-        console.log("Total allowed guesses: " + allowedGuesses);
-        console.log("Total current guess  : " + currentGuess);
-        console.log("Remaing guess        : " + guessRemain);
-        console.log("Letters already used : " + lettersUsed);
-        console.log("Current word         : " + currentWord);
-        console.log("User word            : " + userWord);
-        console.log("");
+// get key pressed
+document.onkeypress = function (event) {
+    // Todo: number should be alpha
+    console.log(event.key);
+    playGame(event.key)
+}
 
 
-        console.log(userWord.join(""));
+function displayStats() {
+    console.log('\x1Bc');
+    console.log("Total allowed guesses: " + allowedGuesses);
+    console.log("Total current guess  : " + currentGuess);
+    console.log("Remaing guess        : " + guessRemain);
+    console.log("Letters already used : " + lettersUsed);
+    console.log("Current word         : " + currentWord);
+    console.log("User word            : " + userWord);
+    console.log("");
+
+}
+
+function checkGame(letter) {
+    //currentGuess++;
+    //guessRemain--;
+
+    console.log(userWord.join(""));
+    if (foundLetter) {
         if (userWord.join("") == currentWord) {
             noWinner = false;
             console.log("");
             console.log("winner winner chicken dinner");
             console.log("");
+            //init();
         }
-        currentGuess++;
-        guessRemain--;
-    }
-    if (noWinner) {
-        console.log("loser");
+        else {
+            currentGuess++;
+            guessRemain--;
+        }
     }
     else {
-        console.log("winner on last try")
+        if (!lettersUsed.includes(letter)) {
+            lettersUsed.push(letter);
+            guessRemain--;
+        }
     }
+}
 
-    console.log("playGame - end");
+function playGame(letter) {
+    var noWinner = true;
+
+    displayStats();
+    console.log(lettersUsed);
+
+    if (lettersUsed.includes(letter)) {
+        console.log(letter + " already selected");
+    }
+    //lettersUsed.push(letter);
+
+    for (i = 0; i <= currentWord.length; i++) {
+        var wletter = currentWord[i];
+        if (letter === wletter) {
+            foundLetter = true;
+            console.log("found at: " + i + " splicing in userWord");
+            userWord.splice(i, 1, letter);
+        }
+    }
+    console.log(lettersUsed.join(""));
+
+    displayStats();
+    checkGame(letter);
 }
