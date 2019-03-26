@@ -3,12 +3,13 @@ function myFunction() {
     var x = document.getElementById("stats");
 
     //x.style.display === "none";
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-    console.log(x.style.display);
+    // if (x.style.display === "none") {
+    //     x.style.display = "block";
+    // } else {
+    //     x.style.display = "none";
+    // }
+    // console.log(x.style.display);
+    
     document.onkeyup = function (event) {
         var userPress = event.key;
         userChoiceText.textContent = "You chose: " + userPress;
