@@ -44,7 +44,8 @@ document.onkeypress = function (event) {
 
 
 function displayStats() {
-    console.log('\x1Bc');
+    //console.log('\x1Bc');
+    console.clear();
     console.log("Total allowed guesses: " + allowedGuesses);
     console.log("Total current guess  : " + currentGuess);
     console.log("Remaing guess        : " + guessRemain);
