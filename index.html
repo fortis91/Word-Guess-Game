@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Word Guess Game</title>
+
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <!-- <body onload="myFunction()"> -->
 <body>
@@ -16,12 +22,22 @@
         <section>
             <div id="demo"></div>
             <!-- <p id="begin">Press any key to start...</p> -->
-            <div id="stats">
+            <p id="userchoice-text"></p>
+            <p id="current-word-text"></p>
+            <p id="wins-text"></p>
+            <p id="losses-text"></p>
+            <p id="allowed-guesses-text"></p>
+            <p id="guess-remain-text"></p>
+            <p id="user-word-text"></p>
+            <p id="letters-used-text"></p>
+            <p id="successmmsg" style="color:green;"></p>
+            <p id="alarmmsg" style="color:red;"></p>
+            <!-- <div id="stats">
                 wins:<br>
                 current word:<br>
                 Number of guesses remaining:<br>
                 Letters already guess:<br>
-            </div>
+            </div> -->
             <p id="userchoice-text"></p>
 
             <!-- <div id="button"><button type="button" onclick="playGame()">Reset</button></div> -->
