@@ -1,22 +1,20 @@
 
 $(document).ready(function () {
     var words = ["game", "sox", "bears", "bulls", "fire", "jamaica"];
-    var userWord = [];
     var currentWord;
-    var currentWordArray = [];
+
+    var userWord = [];
     var lettersUsed = [];
-    var userLetter;
+
     var allowedGuesses = 5;
     var guessRemain = 5;
-    var currentGuess = 0;
-    //var noWinner = true;
 
     var foundLetter = false;
     var wins = 0;
     var loss = 0;
 
     var smsg = "winner winner chicken dinner";
-    var lmsg = "Sorry, try again";
+    var lmsg = "Sorry, game over try again";
 
     var background = document.createElement("audio");
     background.setAttribute("src", "assets/sound/bensound-ukulele.mp3")
@@ -45,12 +43,11 @@ $(document).ready(function () {
 
     function init() {
         console.clear();
-        console.log("initializing new game...");
+        log("initializing new game...");
 
         currentWord = randomWord();
         userWord = [];
         lettersUsed = [];
-        //currentWordArray = currentWord.split(",");
 
         // Todo: cause exception - check
         log("init - currentWord length: " + currentWord.length);
@@ -59,12 +56,10 @@ $(document).ready(function () {
             userWord.push('_');
         }
 
-        currentGuess = 0;
         guessRemain = 5;
-        //noWinner = true;
         foundLetter = false;
         displayStats();
-        background.play();
+        //background.play();
     }
 
 
@@ -81,10 +76,10 @@ $(document).ready(function () {
         lossesText.textContent = "Loss: " + loss;
         allowedGuessesText.textContent = "Allowed Guesses: " + allowedGuesses;
         guessRemainText.textContent = "Guess Remaining: " + guessRemain;
-        currentWordText.textContent = "Current Word: " + currentWord;
-        userWordText.textContent = "User Word: " + userWord.join(" ");
-        lettersUsedText.textContent = "Letters Used: " + lettersUsed.join("-");
-        console.log("stats displayed");
+        currentWordText.textContent = "Current Word: " + currentWord.toUpperCase();
+        userWordText.textContent = "User Word: " + userWord.join(" ").toUpperCase();
+        lettersUsedText.textContent = "Letters Used: " + lettersUsed.join("-").toUpperCase();
+        log("stats displayed");
     }
 
 
@@ -92,14 +87,12 @@ $(document).ready(function () {
         log("checkforWinner");
         if (userWord.join("") == currentWord) {
             wins++;
-            //noWinner = false;
 
             document.getElementById("successmmsg").innerHTML = smsg;
             setTimeout(function () {
                 document.getElementById("successmmsg").innerHTML = '';
                 init();
             }, 3000);
-            //init();
         }
     }
 
@@ -111,13 +104,14 @@ $(document).ready(function () {
         if (guessRemain === 0) {
             loss++;
             gameOver.play();
+
             document.getElementById("alarmmsg").innerHTML = lmsg;
             setTimeout(function () {
                 document.getElementById("alarmmsg").innerHTML = '';
                 init();
             }, 3000);
         }
-        console.log("checkForLoser - guess remaining: " + guessRemain);
+        log("checkForLoser - guess remaining: " + guessRemain);
     }
 
 
@@ -146,13 +140,12 @@ $(document).ready(function () {
                 wrongLetter.play();
             }
             lettersUsed.push(letter);
-            console.log("playGame - letters used: " + lettersUsed.join(""));
+            log("playGame - letters used: " + lettersUsed.join(""));
             foundLetter = false;
         }
         else {
-            console.log(letter + " letter already used");
+            log(letter + " letter already used");
         }
-
         displayStats();
     }
 
