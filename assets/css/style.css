@@ -24,3 +24,7 @@
 #clear {
     clear: both;
 }
+
+p {
+    text-align: center;
+}
