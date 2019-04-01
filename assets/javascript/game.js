@@ -69,7 +69,7 @@ $(document).ready(function () {
 
 
     function displayStats() {
-        document.getElementById("demo").innerHTML = "<h1>Word Guess Game</h1>";
+        document.getElementById("demo").innerHTML = "<h1>Word Guess Game</h1> <br> Chicago Sports Teams Edition";
 
         winsText.textContent = "Wins: " + wins;
         lossesText.textContent = "Loss: " + loss;
