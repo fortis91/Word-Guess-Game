@@ -101,8 +101,10 @@ $(document).ready(function () {
         if (guessRemain === 0) {
             loss++;
             gameOver.play();
+            // userWord = currentWord;
 
             document.getElementById("alarmmsg").innerHTML = lmsg;
+            // currentWordText.textContent = "Current Word: " + currentWord.toUpperCase();
             setTimeout(function () {
                 document.getElementById("alarmmsg").innerHTML = '';
                 init();
